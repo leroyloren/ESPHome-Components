@@ -9,6 +9,7 @@ from esphome.yaml_util import ESPHomeDumper
 from .driver_loader import CppDriver, Driver, DriverManager
 
 CODEOWNERS = ["@kubasaw"]
+
 CONF_ALL = "all"
 CONF_DRIVERS = "drivers"
 CONF_FIELDS = "fields"
@@ -35,12 +36,10 @@ def maybe_all(replacements):
 
 def driver_field_validator(conf):
     driver = conf[CONF_NAME]
-
     conf[CONF_FIELDS] = cv.All(
         maybe_all(driver.available_fields),
         [driver.request_field],
     )(conf[CONF_FIELDS])
-
     return conf
 
 
@@ -79,8 +78,4 @@ async def to_code(config):
 
 
 def FILTER_SOURCE_FILES() -> list[str]:
-    return [
-        d.source_path.name
-        for d in DriverManager._all_drivers.values()
-        if isinstance(d, CppDriver) and d not in DriverManager._requested_drivers
-    ]
+    return []
