@@ -42,6 +42,8 @@ class DriverManager:
             self.request_driver("unknown")
 
         for driver in self._requested_drivers:
+            if isinstance(driver, CppDriver):
+                continue
             target_path = target_dir / f"{driver.name}.cpp"
             old_content = target_path.read_text() if target_path.exists() else ""
 
