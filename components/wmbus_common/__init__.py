@@ -82,5 +82,5 @@ def FILTER_SOURCE_FILES() -> list[str]:
     return [
         d.source_path.name
         for d in DriverManager._all_drivers.values()
-        if isinstance(d, CppDriver)
+        if isinstance(d, CppDriver) and d not in DriverManager._requested_drivers
     ]
