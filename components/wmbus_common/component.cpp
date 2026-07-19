@@ -18,13 +18,16 @@ std::vector<std::string> sorted_driver_names() {
   return driver_names;
 }
 
-const std::vector<std::string> driver_names = std::move(sorted_driver_names());
+const std::vector<std::string> &get_driver_names() {
+  static const std::vector<std::string> driver_names = sorted_driver_names();
+  return driver_names;
+}
 
 void WMBusCommon::dump_config() {
   ESP_LOGCONFIG(TAG, "wM-Bus Component:");
   ESP_LOGCONFIG(TAG, "  wmbusmeters version: %s", WMBUSMETERS_TAG);
   ESP_LOGCONFIG(TAG, "  Loaded drivers:");
-  for (auto &driver : driver_names)
+  for (auto &driver : get_driver_names())
     ESP_LOGCONFIG(TAG, ("    - " + driver).c_str());
 }
 
