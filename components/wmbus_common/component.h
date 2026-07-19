@@ -3,7 +3,7 @@
 
 namespace esphome {
 namespace wmbus_common {
-extern const std::vector<std::string> driver_names;
+const std::vector<std::string> &get_driver_names();
 
 class WMBusCommon : public Component {
  public:
